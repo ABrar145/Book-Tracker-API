@@ -77,4 +77,6 @@ router.get('/:id', verifyToken, getUserById);
 router.put('/:id', verifyToken, validateBody(userSchema), updateUser);
 router.delete('/:id', verifyToken, deleteUser);
 
+console.log(' user.route.ts loaded');
+
 export default router;

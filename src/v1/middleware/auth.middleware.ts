@@ -3,6 +3,7 @@ import admin from '../../config/firebase';
 
 const auth = admin.auth();
 
+
 export const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
   const header = req.headers.authorization;
 

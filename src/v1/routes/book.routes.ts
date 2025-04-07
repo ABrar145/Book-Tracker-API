@@ -14,7 +14,7 @@ const router = express.Router();
  *   name: Books
  *   description: Manage reading list books
 
- * /api/books:
+ * /api/v1/books:
  *   get:
  *     summary: Get all books
  *     tags: [Books]
@@ -34,7 +34,7 @@ const router = express.Router();
  *       201:
  *         description: Book created
 
- * /api/books/{id}:
+ * /api/v1/books/{id}:
  *   get:
  *     summary: Get book by ID
  *     tags: [Books]
