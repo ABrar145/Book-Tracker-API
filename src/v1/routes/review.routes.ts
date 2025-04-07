@@ -1,5 +1,23 @@
 import express from 'express';
 import {
+
+  getReviews,
+  getReviewById,
+  getReviewsByBook,
+  addReview,
+  updateReview,
+  deleteReview
+} from '../controllers/review.controller';
+
+const router = express.Router();
+
+router.get('/', getReviews);
+router.get('/:id', getReviewById);
+router.get('/book/:bookId', getReviewsByBook);
+router.post('/', addReview);
+router.put('/:id', updateReview);
+router.delete('/:id', deleteReview);
+
   getReviews, getReviewById, getReviewsByBook,
   addReview, updateReview, deleteReview
 } from '../controllers/review.controller';
@@ -15,5 +33,6 @@ router.get('/book/:bookId', verifyToken, getReviewsByBook);
 router.post('/', verifyToken, validateBody(reviewSchema), addReview);
 router.put('/:id', verifyToken, validateBody(reviewSchema), updateReview);
 router.delete('/:id', verifyToken, deleteReview);
+
 
 export default router;
