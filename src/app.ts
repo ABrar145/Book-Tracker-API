@@ -5,11 +5,11 @@ import dotenv from 'dotenv';
 import morgan from 'morgan';
 import swaggerUi from 'swagger-ui-express';
 import swaggerSpec from './docs/swagger';
-
-import userRoutes from './v1/routes/user.routes';
-import bookRoutes from './v1/routes/book.routes';
-import reviewRoutes from './v1/routes/review.routes';
-
+import mongoose from 'mongoose';
+import userRoutes from './api/v1/routes/user.routes';
+import bookRoutes from './api/v1/routes/book.routes';
+import reviewRoutes from './api/v1/routes/review.routes';
+import authMiddleware from './api/v1/middleware/auth.middleware';
 
 dotenv.config();
 
@@ -20,7 +20,7 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
-
+app.use(authMiddleware);
 // Routes
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/books', bookRoutes);
@@ -33,6 +33,8 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.get('/', (_req, res) => {
   res.send(' Book Tracker API is running');
 });
-
+export const closeConnection = async () => {
+    await mongoose.connection.close(); // ✅ Clean DB close
+  };
 
 export default app;
