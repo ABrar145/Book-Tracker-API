@@ -1,17 +1,9 @@
-import express from 'express';
-import {
-  getReviews,
-  getReviewById,
-  createReview,
-  updateReview,
-  deleteReview,
-  // getReviewsByBook, // Uncomment if implemented
-} from '../controllers/review.controller';
-import validate from '../middleware/validate.middleware';
-import {
-  createReviewSchema,
-  updateReviewSchema,
-} from '../../../validators/review.validator';
+import express from "express";
+import * as reviewController from "../controllers/review.controller";
+import authMiddleware from "../middleware/auth.middleware";
+import isAuthorized from "../middleware/authorize.middleware";
+import validateRequest from "../middleware/validate.middleware";
+import { createReviewSchema, updateReviewSchema } from "../../../validators/review.validator";
 
 const router = express.Router();
 
@@ -20,6 +12,29 @@ const router = express.Router();
  * tags:
  *   name: Reviews
  *   description: Review management
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Review:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *         book:
+ *           type: string
+ *         user:
+ *           type: string
+ *         rating:
+ *           type: number
+ *         comment:
+ *           type: string
+ *         createdAt:
+ *           type: string
+ *         updatedAt:
+ *           type: string
  */
 
 /**
@@ -33,7 +48,14 @@ const router = express.Router();
  *     responses:
  *       200:
  *         description: List of reviews
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Review'
  */
+router.get("/", authMiddleware, reviewController.getReviews);
 
 /**
  * @swagger
@@ -44,24 +66,29 @@ const router = express.Router();
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - name: id
- *         in: path
- *         description: Review ID
+ *       - in: path
+ *         name: id
  *         required: true
  *         schema:
  *           type: string
+ *         description: Review ID
  *     responses:
  *       200:
  *         description: A single review
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Review'
  *       404:
  *         description: Review not found
  */
+router.get("/:id", authMiddleware, reviewController.getReviewById);
 
 /**
  * @swagger
  * /api/v1/reviews:
  *   post:
- *     summary: Create a new review
+ *     summary: Create a review
  *     tags: [Reviews]
  *     security:
  *       - bearerAuth: []
@@ -70,11 +97,7 @@ const router = express.Router();
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             required:
- *               - book
- *               - user
- *               - rating
+ *             required: [book, user, rating]
  *             properties:
  *               book:
  *                 type: string
@@ -82,14 +105,17 @@ const router = express.Router();
  *                 type: string
  *               rating:
  *                 type: number
- *                 minimum: 1
- *                 maximum: 5
  *               comment:
  *                 type: string
  *     responses:
  *       201:
  *         description: Review created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Review'
  */
+router.post("/", authMiddleware, isAuthorized({ hasRole: ["user", "admin"] }), validateRequest(createReviewSchema), reviewController.createReview);
 
 /**
  * @swagger
@@ -100,23 +126,19 @@ const router = express.Router();
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - name: id
- *         in: path
- *         description: Review ID
+ *       - in: path
+ *         name: id
  *         required: true
  *         schema:
  *           type: string
+ *         description: Review ID
  *     requestBody:
- *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
  *             properties:
  *               rating:
  *                 type: number
- *                 minimum: 1
- *                 maximum: 5
  *               comment:
  *                 type: string
  *     responses:
@@ -125,6 +147,7 @@ const router = express.Router();
  *       404:
  *         description: Review not found
  */
+router.put("/:id", authMiddleware, isAuthorized({ hasRole: ["user", "admin"], allowSameUser: true }), validateRequest(updateReviewSchema), reviewController.updateReview);
 
 /**
  * @swagger
@@ -135,25 +158,18 @@ const router = express.Router();
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - name: id
- *         in: path
- *         description: Review ID
+ *       - in: path
+ *         name: id
  *         required: true
  *         schema:
  *           type: string
+ *         description: Review ID
  *     responses:
  *       200:
- *         description: Review deleted
+ *         description: Review deleted successfully
  *       404:
  *         description: Review not found
  */
-
-router.get('/', getReviews);
-router.get('/:id', getReviewById);
-
-
-router.post('/', validate(createReviewSchema), createReview);
-router.put('/:id', validate(updateReviewSchema), updateReview);
-router.delete('/:id', deleteReview);
+router.delete("/:id", authMiddleware, isAuthorized({ hasRole: ["admin"] }), reviewController.deleteReview);
 
 export default router;

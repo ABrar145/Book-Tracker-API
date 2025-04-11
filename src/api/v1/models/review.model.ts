@@ -1,13 +1,48 @@
-import mongoose from 'mongoose';
+export type Review = {
+  id: string;
+  book: string;
+  user: string;
+  rating: number;
+  comment?: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
 
-const reviewSchema = new mongoose.Schema(
-  {
-    book: { type: mongoose.Schema.Types.ObjectId, ref: 'Book', required: true },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    rating: { type: Number, required: true, min: 1, max: 5 },
-    comment: { type: String },
+const reviews: Review[] = [];
+
+export default {
+  find: async (): Promise<Review[]> => reviews,
+
+  findById: async (id: string): Promise<Review | undefined> =>
+    reviews.find((r) => r.id === id),
+
+  create: async (data: Omit<Review, "id" | "createdAt" | "updatedAt">): Promise<Review> => {
+    const timestamp = new Date();
+    const newReview: Review = {
+      ...data,
+      id: Date.now().toString(),
+      createdAt: timestamp,
+      updatedAt: timestamp,
+    };
+    reviews.push(newReview);
+    return newReview;
   },
-  { timestamps: true }
-);
 
-export default mongoose.model('Review', reviewSchema);
+  update: async (id: string, data: Partial<Review>): Promise<Review | null> => {
+    const index = reviews.findIndex((r) => r.id === id);
+    if (index === -1) return null;
+    reviews[index] = {
+      ...reviews[index],
+      ...data,
+      updatedAt: new Date(),
+    };
+    return reviews[index];
+  },
+
+  delete: async (id: string): Promise<Review | null> => {
+    const index = reviews.findIndex((r) => r.id === id);
+    if (index === -1) return null;
+    const deleted = reviews.splice(index, 1)[0];
+    return deleted;
+  },
+};
