@@ -5,7 +5,6 @@ import dotenv from 'dotenv';
 import morgan from 'morgan';
 import swaggerUi from 'swagger-ui-express';
 import swaggerSpec from './docs/swagger';
-import mongoose from 'mongoose';
 import userRoutes from './api/v1/routes/user.routes';
 import bookRoutes from './api/v1/routes/book.routes';
 import reviewRoutes from './api/v1/routes/review.routes';
@@ -33,8 +32,6 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.get('/', (_req, res) => {
   res.send(' Book Tracker API is running');
 });
-export const closeConnection = async () => {
-    await mongoose.connection.close(); // ✅ Clean DB close
-  };
+
 
 export default app;

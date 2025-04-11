@@ -1,24 +1,40 @@
-import express from 'express';
-import {
-  createUser,
-  getUsers,
-  getUserById,
-  updateUser,
-  deleteUser,
-} from '../controllers/user.controller';
-import validate from '../middleware/validate.middleware';
-import authMiddleware from '../middleware/auth.middleware';
-import {
-  createUserSchema,
-  updateUserSchema,
-} from '../../../validators/user.validator';
+import express from "express";
+import * as userController from "../controllers/user.controller";
+import authMiddleware from "../middleware/auth.middleware";
+import isAuthorized from "../middleware/authorize.middleware";
+import validateRequest from "../middleware/validate.middleware";
+import { createUserSchema, updateUserSchema } from "../../../validators/user.validator";
 
 const router = express.Router();
+
 /**
  * @swagger
  * tags:
  *   name: Users
  *   description: User management
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *         uid:
+ *           type: string
+ *         name:
+ *           type: string
+ *         email:
+ *           type: string
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
  */
 
 /**
@@ -32,7 +48,14 @@ const router = express.Router();
  *     responses:
  *       200:
  *         description: List of users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/User'
  */
+router.get("/", authMiddleware, userController.getUsers);
 
 /**
  * @swagger
@@ -43,18 +66,23 @@ const router = express.Router();
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - name: id
- *         in: path
- *         description: User ID
- *         required: true
+ *       - in: path
+ *         name: id
  *         schema:
  *           type: string
+ *         required: true
+ *         description: User ID
  *     responses:
  *       200:
- *         description: A single user
+ *         description: The user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
  *       404:
  *         description: User not found
  */
+router.get("/:id", authMiddleware, userController.getUserById);
 
 /**
  * @swagger
@@ -69,11 +97,7 @@ const router = express.Router();
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             required:
- *               - uid
- *               - name
- *               - email
+ *             required: [uid, name, email]
  *             properties:
  *               uid:
  *                 type: string
@@ -84,7 +108,18 @@ const router = express.Router();
  *     responses:
  *       201:
  *         description: User created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
  */
+router.post(
+  "/",
+  authMiddleware,
+  isAuthorized({ hasRole: ["admin"] }),
+  validateRequest(createUserSchema),
+  userController.createUser
+);
 
 /**
  * @swagger
@@ -95,18 +130,16 @@ const router = express.Router();
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - name: id
- *         in: path
- *         description: User ID
- *         required: true
+ *       - in: path
+ *         name: id
  *         schema:
  *           type: string
+ *         required: true
+ *         description: User ID
  *     requestBody:
- *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
  *             properties:
  *               name:
  *                 type: string
@@ -115,9 +148,20 @@ const router = express.Router();
  *     responses:
  *       200:
  *         description: User updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
  *       404:
  *         description: User not found
  */
+router.put(
+  "/:id",
+  authMiddleware,
+  isAuthorized({ hasRole: ["admin", "manager"], allowSameUser: true }),
+  validateRequest(updateUserSchema),
+  userController.updateUser
+);
 
 /**
  * @swagger
@@ -128,25 +172,23 @@ const router = express.Router();
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - name: id
- *         in: path
- *         description: User ID
- *         required: true
+ *       - in: path
+ *         name: id
  *         schema:
  *           type: string
+ *         required: true
+ *         description: User ID
  *     responses:
  *       200:
- *         description: User deleted
+ *         description: User deleted successfully
  *       404:
  *         description: User not found
  */
-
-router.use(authMiddleware);
-
-router.post('/', validate(createUserSchema), createUser);
-router.get('/', getUsers);
-router.get('/:id', getUserById);
-router.put('/:id', validate(updateUserSchema), updateUser);
-router.delete('/:id', deleteUser);
+router.delete(
+  "/:id",
+  authMiddleware,
+  isAuthorized({ hasRole: ["admin"] }),
+  userController.deleteUser
+);
 
 export default router;
