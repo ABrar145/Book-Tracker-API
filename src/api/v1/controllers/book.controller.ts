@@ -6,12 +6,17 @@ import { HTTP_STATUS } from "../../../constants/httpConstants";
 
 export const getAllBooks = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    console.log(" Incoming GET /books request");
     const books: Book[] = await bookService.getAllBooks();
-    res.status(HTTP_STATUS.OK).json(successResponse(books, "Books Retrieved"));
+    console.log("Books retrieved:", books); // <- Add this
+    res.status(200).json(successResponse(books, "Books Retrieved"));
   } catch (err) {
+    console.error(" Error in getAllBooks:", err); // <- Already present
     next(err);
   }
 };
+
+
 
 export const createBook = async (req: Request, res: Response, next: NextFunction) => {
   try {

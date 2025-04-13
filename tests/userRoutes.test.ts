@@ -1,6 +1,6 @@
 import request from "supertest";
 import { Request, Response, NextFunction } from "express";
-import app from "../src/app";
+import app from "../app";
 
 jest.mock("../src/api/v1/controllers/user.controller", () => ({
   getUsers: jest.fn((_req: Request, res: Response) => res.status(200).send()),

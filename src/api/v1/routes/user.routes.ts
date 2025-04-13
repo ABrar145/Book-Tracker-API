@@ -10,8 +10,8 @@ const router = express.Router();
 /**
  * @swagger
  * tags:
- *   name: Users
- *   description: User management
+ *   - name: Users
+ *     description: User management
  */
 
 /**
@@ -68,9 +68,9 @@ router.get("/", authMiddleware, userController.getUsers);
  *     parameters:
  *       - in: path
  *         name: id
+ *         required: true
  *         schema:
  *           type: string
- *         required: true
  *         description: User ID
  *     responses:
  *       200:
@@ -97,6 +97,7 @@ router.get("/:id", authMiddleware, userController.getUserById);
  *       content:
  *         application/json:
  *           schema:
+ *             type: object
  *             required: [uid, name, email]
  *             properties:
  *               uid:
@@ -132,14 +133,16 @@ router.post(
  *     parameters:
  *       - in: path
  *         name: id
+ *         required: true
  *         schema:
  *           type: string
- *         required: true
  *         description: User ID
  *     requestBody:
+ *       required: true
  *       content:
  *         application/json:
  *           schema:
+ *             type: object
  *             properties:
  *               name:
  *                 type: string
@@ -174,9 +177,9 @@ router.put(
  *     parameters:
  *       - in: path
  *         name: id
+ *         required: true
  *         schema:
  *           type: string
- *         required: true
  *         description: User ID
  *     responses:
  *       200:
