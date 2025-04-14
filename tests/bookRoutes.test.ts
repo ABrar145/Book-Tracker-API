@@ -2,7 +2,7 @@ import request from "supertest";
 import { Request, Response, NextFunction } from "express";
 import app from "../app";
 
-// ✅ Mock controller
+//  Mock controller
 jest.mock("../src/api/v1/controllers/book.controller", () => ({
   __esModule: true,
   getAllBooks: jest.fn((_req, res) => res.status(200).send()),
@@ -11,10 +11,10 @@ jest.mock("../src/api/v1/controllers/book.controller", () => ({
   deleteBook: jest.fn((_req, res) => res.status(204).send()),
 }));
 
-// ✅ Must use require here after mocking
+//  Must use require here after mocking
 const bookController = require("../src/api/v1/controllers/book.controller");
 
-// ✅ Mock middleware
+//  Mock middleware
 jest.mock("../src/api/v1/middleware/auth.middleware", () =>
   jest.fn((_req: Request, _res: Response, next: NextFunction) => next())
 );

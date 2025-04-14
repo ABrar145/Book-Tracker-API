@@ -2,10 +2,10 @@ import request from "supertest";
 import { Request, Response, NextFunction } from "express";
 import app from "../app";
 
-// ✅ USE `require` to align with mocked module
+//  USE `require` to align with mocked module
 const reviewController = require("../src/api/v1/controllers/review.controller");
 
-// ✅ Ensure ES module support in mocks
+//  Ensure ES module support in mocks
 jest.mock("../src/api/v1/controllers/review.controller", () => ({
   __esModule: true,
   getReviews: jest.fn((_req: Request, res: Response) => res.status(200).send()),
@@ -48,7 +48,7 @@ describe("Review Routes", () => {
         rating: 4,
       });
   
-    expect(reviewController.createReview).toHaveBeenCalled(); // ✅ Should now pass
+    expect(reviewController.createReview).toHaveBeenCalled(); //  Should now pass
   });
   
   it("PUT /api/v1/reviews/:id should call controller", async () => {
