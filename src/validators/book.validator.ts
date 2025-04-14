@@ -1,9 +1,13 @@
-import Joi from 'joi';
+import Joi from "joi";
 
 export const bookSchema = Joi.object({
-  title: Joi.string().min(1).required(),
-  author: Joi.string().min(1).required(),
-  status: Joi.string().valid('read', 'reading', 'want-to-read').required(),
-  notes: Joi.string().optional(),
-  userId: Joi.string().optional(),
+  title: Joi.string().required(),
+  author: Joi.string().required(),
+  status: Joi.string().valid("available", "unavailable").required(),
+  genre: Joi.string().optional(),
+  publishedYear: Joi.number().integer().min(0).optional(),
+});
+
+export const deleteBookSchema = Joi.object({
+  id: Joi.string().required(),
 });

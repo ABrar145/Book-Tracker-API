@@ -1,7 +1,12 @@
 import Joi from 'joi';
 
-export const userSchema = Joi.object({
-  displayName: Joi.string().min(2).required(),
+export const createUserSchema = Joi.object({
+  uid: Joi.string().required(), // Firebase UID
+  name: Joi.string().required(),
   email: Joi.string().email().required(),
-  role: Joi.string().valid('user', 'admin').optional(),
+});
+
+export const updateUserSchema = Joi.object({
+  name: Joi.string().optional(),
+  email: Joi.string().email().optional(),
 });

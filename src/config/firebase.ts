@@ -1,10 +1,9 @@
-import * as admin from 'firebase-admin';
-import * as dotenv from 'dotenv';
+import admin from 'firebase-admin';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
 const raw = process.env.FIREBASE_SERVICE_ACCOUNT;
-
 if (!raw) {
   throw new Error('Missing FIREBASE_SERVICE_ACCOUNT in .env');
 }
@@ -14,11 +13,14 @@ if (serviceAccount.private_key) {
   serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
 }
 
+// Initialize Firebase only once
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+  });
+}
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
+const auth = admin.auth(); // ✅ Extract auth instance
 
+export default auth; // ✅ Default export now is auth
 export const db = admin.firestore();
-export const auth = admin.auth();
-export default admin;

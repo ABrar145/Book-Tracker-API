@@ -1,39 +1,24 @@
-import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerAutogen from 'swagger-autogen';
 
-const swaggerDefinition = {
-  openapi: '3.0.0',
+const doc = {
   info: {
     title: 'Book Tracker API',
-    version: '1.0.0',
     description: 'API for managing reading lists, books, and reviews.',
+    version: '1.0.0',
   },
-  servers: [
-    {
-      url: 'http://localhost:3000',
-      description: 'Development server',
-    },
-  ],
-  components: {
-    securitySchemes: {
-      bearerAuth: {
-        type: 'http',
-        scheme: 'bearer',
-        bearerFormat: 'JWT',
-      },
+  host: 'localhost:3000',
+  basePath: '/api/v1',
+  schemes: ['http'],
+  securityDefinitions: {
+    bearerAuth: {
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
     },
   },
-  security: [
-    {
-      bearerAuth: [],
-    },
-  ],
 };
 
-const options = {
-  swaggerDefinition,
-  apis: ['./src/routes/*.ts'], // this tells Swagger where to find your docs in route files
-};
+const outputFile = './src/docs/swagger-output.json'; // ✅ File is here
+const endpointsFiles = ['./src/app.ts']; // ✅ or routes directly
 
-const swaggerSpec = swaggerJSDoc(options);
-
-export default swaggerSpec;
+swaggerAutogen()(outputFile, endpointsFiles, doc);
