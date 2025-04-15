@@ -39,7 +39,7 @@ describe("Book Routes", () => {
       .send({
         title: "Test Book",
         author: "Test Author",
-        status: "available", // ✅ required field
+        status: "available", // required field
         genre: "Fiction",
         publishedYear: 2024,
       });
@@ -55,7 +55,7 @@ describe("Book Routes", () => {
       .send({
         title: "Updated Title",
         author: "Updated Author",
-        status: "unavailable", // ✅ required field
+        status: "unavailable", //  required field
         genre: "Biography",
         publishedYear: 2023,
       });
