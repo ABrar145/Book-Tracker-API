@@ -1,0 +1,700 @@
+{
+	"info": {
+		"_postman_id": "d84ce93d-046e-4d34-b2a0-a9ed5177d35f",
+		"name": "📚 Book Tracker API",
+		"description": "Postman collection for testing users, books, and reviews endpoints with Firebase token handling.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41634443"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"displayName\": \"Jane Doe\",\n  \"email\": \"jane@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/{{userId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Books",
+			"item": [
+				{
+					"name": "Create Book",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Atomic Habits\",\n  \"author\": \"James Clear\",\n  \"status\": \"reading\",\n  \"notes\": \"Reading April\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/books",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Books",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/books",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:4000/api/v1/books",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjcxMTE1MjM1YTZjNjE0NTRlZmRlZGM0NWE3N2U0MzUxMzY3ZWViZTAiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiYWRtaW4iLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYm9vay10cmFjZXIiLCJhdWQiOiJib29rLXRyYWNlciIsImF1dGhfdGltZSI6MTc0NDU2OTY4OCwidXNlcl9pZCI6ImQwN0JvWlYzd0RhZ0lrdnl4eHQyellMVEE5NjIiLCJzdWIiOiJkMDdCb1pWM3dEYWdJa3Z5eHh0MnpZTFRBOTYyIiwiaWF0IjoxNzQ0NTY5Njg4LCJleHAiOjE3NDQ1NzMyODgsImVtYWlsIjoib21wYXRlbEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsib21wYXRlbEBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.a_Z1Yo6AYf2qOwJus11YwGS_WEV3UO9y_MAdEFv7atshY9RnebhCUIun7h8tL6yk9kM9JV_FbTPuTMCRLQByVB87Ox1qj1rSX2txqBwK4rlNIMZkFApVrnx5aY7_wSbJc0EVvr2fLVQ_jks7IC7JGnDv473Rkcj4lOGdMp7BlHvC3TuUHG3xKTRFBsWa_1hmHbBPCiq-qtNr6_tAEISkuj7p_M5RlRha2YCOlYZXeAIFEd1v7uN0mI5qB5YgyRE1Yr_Aamwc395_zeaEsrfaqPQRVbBd-gYtQNPGFUcpdTuzYixA2Pv8smpOuupEXvz61KPA_iMVuR2wRtMWGJcNTg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"The Subtle Art of Not Giving a F*ck\",\r\n  \"author\": \"Mark Manson\",\r\n  \"status\": \"available\",\r\n  \"genre\": \"Self-help\",\r\n  \"publishedYear\": 2016\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/v1/books",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:4000/api/v1/books",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjcxMTE1MjM1YTZjNjE0NTRlZmRlZGM0NWE3N2U0MzUxMzY3ZWViZTAiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiYWRtaW4iLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYm9vay10cmFjZXIiLCJhdWQiOiJib29rLXRyYWNlciIsImF1dGhfdGltZSI6MTc0NDU2OTY4OCwidXNlcl9pZCI6ImQwN0JvWlYzd0RhZ0lrdnl4eHQyellMVEE5NjIiLCJzdWIiOiJkMDdCb1pWM3dEYWdJa3Z5eHh0MnpZTFRBOTYyIiwiaWF0IjoxNzQ0NTY5Njg4LCJleHAiOjE3NDQ1NzMyODgsImVtYWlsIjoib21wYXRlbEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsib21wYXRlbEBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.a_Z1Yo6AYf2qOwJus11YwGS_WEV3UO9y_MAdEFv7atshY9RnebhCUIun7h8tL6yk9kM9JV_FbTPuTMCRLQByVB87Ox1qj1rSX2txqBwK4rlNIMZkFApVrnx5aY7_wSbJc0EVvr2fLVQ_jks7IC7JGnDv473Rkcj4lOGdMp7BlHvC3TuUHG3xKTRFBsWa_1hmHbBPCiq-qtNr6_tAEISkuj7p_M5RlRha2YCOlYZXeAIFEd1v7uN0mI5qB5YgyRE1Yr_Aamwc395_zeaEsrfaqPQRVbBd-gYtQNPGFUcpdTuzYixA2Pv8smpOuupEXvz61KPA_iMVuR2wRtMWGJcNTg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"The Subtle Art of Not Giving a F*ck\",\r\n  \"author\": \"Mark Manson\",\r\n  \"status\": \"available\",\r\n  \"genre\": \"Self-help\",\r\n  \"publishedYear\": 2016\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/v1/books",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:4000/api/v1/books",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjcxMTE1MjM1YTZjNjE0NTRlZmRlZGM0NWE3N2U0MzUxMzY3ZWViZTAiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiYWRtaW4iLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYm9vay10cmFjZXIiLCJhdWQiOiJib29rLXRyYWNlciIsImF1dGhfdGltZSI6MTc0NDU2OTkwNiwidXNlcl9pZCI6ImQwN0JvWlYzd0RhZ0lrdnl4eHQyellMVEE5NjIiLCJzdWIiOiJkMDdCb1pWM3dEYWdJa3Z5eHh0MnpZTFRBOTYyIiwiaWF0IjoxNzQ0NTY5OTA2LCJleHAiOjE3NDQ1NzM1MDYsImVtYWlsIjoib21wYXRlbEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsib21wYXRlbEBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.olQnEilxhCpwneK-hDqm4rXlitNmiRebiCTYMng0jIWVnhRvaIBx90A6pSEXnb2RFcBseRLCEOcibO9Gp71l9nASjQzoA2PwVsNc4fTnQ92-jNEojp5bAFSJgnYP3G8uL9LlWtl0pJyol6ZTpFec3E36Mo-LFYNG0GOhD8FHGlrUJij8w4MpdRjlfqCn6CRSQQsHHPviHkXlb-6egy1GOPGehgk6DzktyHm5h3jQLF50SkA-Prbv1Gp_BcAflqc0oQXGnCWlMdJ9P5JP2-ITSzVgPYSedlj155flZIs8ZUUQX4kL8o4mv8EIXgL5Z7xmQPVQg6fdq82fK4d8ASai_Q",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Updated Book\",\r\n  \"author\": \"Updated Author\",\r\n  \"status\": \"available\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/v1/books/123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"books",
+								"123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:4000/api/v1/books",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjcxMTE1MjM1YTZjNjE0NTRlZmRlZGM0NWE3N2U0MzUxMzY3ZWViZTAiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiYWRtaW4iLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYm9vay10cmFjZXIiLCJhdWQiOiJib29rLXRyYWNlciIsImF1dGhfdGltZSI6MTc0NDU3MDAzOCwidXNlcl9pZCI6ImQwN0JvWlYzd0RhZ0lrdnl4eHQyellMVEE5NjIiLCJzdWIiOiJkMDdCb1pWM3dEYWdJa3Z5eHh0MnpZTFRBOTYyIiwiaWF0IjoxNzQ0NTcwMDM4LCJleHAiOjE3NDQ1NzM2MzgsImVtYWlsIjoib21wYXRlbEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsib21wYXRlbEBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.PYAk-MCxHzY96QMqo8iZN0KkkeUysqduY_718mTeV08WmyTmvcb4RUxYV3IhGHCMIuO9DWV47O0dStk3qpcC5m88fvFWb_KdfNMe6uqHwCfoGSt9eCQABQDVyFmND3tWaFr2u6AjYze6A0f4CT9SJH6xqLEE9iWkmfo_Oj_8-Ju0sGV4n4JCOqD_wiVB3yJET26SxtgcVkaJTnPiWC-7ZoKHjBwJKnQhx095tftR4UHU9rTX3FLLyfcNideuYWlYCGJhWp1TehI5ETxXOJD9zOb53BjbSqWxvUA5MEtFk8dYaRNjhv0R9z0fW_yNud6ayJ_p9djWNimp8aPI_Sjt_A",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:4000/api/v1/books/123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"books",
+								"123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:4000/api/v1/users",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjcxMTE1MjM1YTZjNjE0NTRlZmRlZGM0NWE3N2U0MzUxMzY3ZWViZTAiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiYWRtaW4iLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYm9vay10cmFjZXIiLCJhdWQiOiJib29rLXRyYWNlciIsImF1dGhfdGltZSI6MTc0NDU3MDAzOCwidXNlcl9pZCI6ImQwN0JvWlYzd0RhZ0lrdnl4eHQyellMVEE5NjIiLCJzdWIiOiJkMDdCb1pWM3dEYWdJa3Z5eHh0MnpZTFRBOTYyIiwiaWF0IjoxNzQ0NTcwMDM4LCJleHAiOjE3NDQ1NzM2MzgsImVtYWlsIjoib21wYXRlbEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsib21wYXRlbEBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.PYAk-MCxHzY96QMqo8iZN0KkkeUysqduY_718mTeV08WmyTmvcb4RUxYV3IhGHCMIuO9DWV47O0dStk3qpcC5m88fvFWb_KdfNMe6uqHwCfoGSt9eCQABQDVyFmND3tWaFr2u6AjYze6A0f4CT9SJH6xqLEE9iWkmfo_Oj_8-Ju0sGV4n4JCOqD_wiVB3yJET26SxtgcVkaJTnPiWC-7ZoKHjBwJKnQhx095tftR4UHU9rTX3FLLyfcNideuYWlYCGJhWp1TehI5ETxXOJD9zOb53BjbSqWxvUA5MEtFk8dYaRNjhv0R9z0fW_yNud6ayJ_p9djWNimp8aPI_Sjt_A",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:4000/api/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:4000/api/v1/users",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjcxMTE1MjM1YTZjNjE0NTRlZmRlZGM0NWE3N2U0MzUxMzY3ZWViZTAiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiYWRtaW4iLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYm9vay10cmFjZXIiLCJhdWQiOiJib29rLXRyYWNlciIsImF1dGhfdGltZSI6MTc0NDU3MDAzOCwidXNlcl9pZCI6ImQwN0JvWlYzd0RhZ0lrdnl4eHQyellMVEE5NjIiLCJzdWIiOiJkMDdCb1pWM3dEYWdJa3Z5eHh0MnpZTFRBOTYyIiwiaWF0IjoxNzQ0NTcwMDM4LCJleHAiOjE3NDQ1NzM2MzgsImVtYWlsIjoib21wYXRlbEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsib21wYXRlbEBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.PYAk-MCxHzY96QMqo8iZN0KkkeUysqduY_718mTeV08WmyTmvcb4RUxYV3IhGHCMIuO9DWV47O0dStk3qpcC5m88fvFWb_KdfNMe6uqHwCfoGSt9eCQABQDVyFmND3tWaFr2u6AjYze6A0f4CT9SJH6xqLEE9iWkmfo_Oj_8-Ju0sGV4n4JCOqD_wiVB3yJET26SxtgcVkaJTnPiWC-7ZoKHjBwJKnQhx095tftR4UHU9rTX3FLLyfcNideuYWlYCGJhWp1TehI5ETxXOJD9zOb53BjbSqWxvUA5MEtFk8dYaRNjhv0R9z0fW_yNud6ayJ_p9djWNimp8aPI_Sjt_A",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"uid\": \"w25UMseY40a3AO4Fb2YQx2Jm2qB3\",\r\n  \"name\": \"om patel\",\r\n  \"email\": \"ompatel@gmail.com\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:4000/api/v1/reviews",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjcxMTE1MjM1YTZjNjE0NTRlZmRlZGM0NWE3N2U0MzUxMzY3ZWViZTAiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiYWRtaW4iLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYm9vay10cmFjZXIiLCJhdWQiOiJib29rLXRyYWNlciIsImF1dGhfdGltZSI6MTc0NDU3MDAzOCwidXNlcl9pZCI6ImQwN0JvWlYzd0RhZ0lrdnl4eHQyellMVEE5NjIiLCJzdWIiOiJkMDdCb1pWM3dEYWdJa3Z5eHh0MnpZTFRBOTYyIiwiaWF0IjoxNzQ0NTcwMDM4LCJleHAiOjE3NDQ1NzM2MzgsImVtYWlsIjoib21wYXRlbEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsib21wYXRlbEBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.PYAk-MCxHzY96QMqo8iZN0KkkeUysqduY_718mTeV08WmyTmvcb4RUxYV3IhGHCMIuO9DWV47O0dStk3qpcC5m88fvFWb_KdfNMe6uqHwCfoGSt9eCQABQDVyFmND3tWaFr2u6AjYze6A0f4CT9SJH6xqLEE9iWkmfo_Oj_8-Ju0sGV4n4JCOqD_wiVB3yJET26SxtgcVkaJTnPiWC-7ZoKHjBwJKnQhx095tftR4UHU9rTX3FLLyfcNideuYWlYCGJhWp1TehI5ETxXOJD9zOb53BjbSqWxvUA5MEtFk8dYaRNjhv0R9z0fW_yNud6ayJ_p9djWNimp8aPI_Sjt_A",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"book\": \"507f1f77bcf86cd799439011\",\r\n  \"user\": \"507f1f77bcf86cd799439012\",\r\n  \"rating\": 4,\r\n  \"comment\": \"This book was amazing!\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/v1/reviews",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:4000/api/v1/reviews",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjcxMTE1MjM1YTZjNjE0NTRlZmRlZGM0NWE3N2U0MzUxMzY3ZWViZTAiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiYWRtaW4iLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYm9vay10cmFjZXIiLCJhdWQiOiJib29rLXRyYWNlciIsImF1dGhfdGltZSI6MTc0NDU3MDAzOCwidXNlcl9pZCI6ImQwN0JvWlYzd0RhZ0lrdnl4eHQyellMVEE5NjIiLCJzdWIiOiJkMDdCb1pWM3dEYWdJa3Z5eHh0MnpZTFRBOTYyIiwiaWF0IjoxNzQ0NTcwMDM4LCJleHAiOjE3NDQ1NzM2MzgsImVtYWlsIjoib21wYXRlbEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsib21wYXRlbEBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.PYAk-MCxHzY96QMqo8iZN0KkkeUysqduY_718mTeV08WmyTmvcb4RUxYV3IhGHCMIuO9DWV47O0dStk3qpcC5m88fvFWb_KdfNMe6uqHwCfoGSt9eCQABQDVyFmND3tWaFr2u6AjYze6A0f4CT9SJH6xqLEE9iWkmfo_Oj_8-Ju0sGV4n4JCOqD_wiVB3yJET26SxtgcVkaJTnPiWC-7ZoKHjBwJKnQhx095tftR4UHU9rTX3FLLyfcNideuYWlYCGJhWp1TehI5ETxXOJD9zOb53BjbSqWxvUA5MEtFk8dYaRNjhv0R9z0fW_yNud6ayJ_p9djWNimp8aPI_Sjt_A",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"book\": \"507f1f77bcf86cd799439011\",\r\n  \"user\": \"507f1f77bcf86cd799439012\",\r\n  \"rating\": 4,\r\n  \"comment\": \"This book was amazing!\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/v1/users/1744570259050",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"1744570259050"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:4000/api/v1/users",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjcxMTE1MjM1YTZjNjE0NTRlZmRlZGM0NWE3N2U0MzUxMzY3ZWViZTAiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiYWRtaW4iLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYm9vay10cmFjZXIiLCJhdWQiOiJib29rLXRyYWNlciIsImF1dGhfdGltZSI6MTc0NDU3MDAzOCwidXNlcl9pZCI6ImQwN0JvWlYzd0RhZ0lrdnl4eHQyellMVEE5NjIiLCJzdWIiOiJkMDdCb1pWM3dEYWdJa3Z5eHh0MnpZTFRBOTYyIiwiaWF0IjoxNzQ0NTcwMDM4LCJleHAiOjE3NDQ1NzM2MzgsImVtYWlsIjoib21wYXRlbEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsib21wYXRlbEBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.PYAk-MCxHzY96QMqo8iZN0KkkeUysqduY_718mTeV08WmyTmvcb4RUxYV3IhGHCMIuO9DWV47O0dStk3qpcC5m88fvFWb_KdfNMe6uqHwCfoGSt9eCQABQDVyFmND3tWaFr2u6AjYze6A0f4CT9SJH6xqLEE9iWkmfo_Oj_8-Ju0sGV4n4JCOqD_wiVB3yJET26SxtgcVkaJTnPiWC-7ZoKHjBwJKnQhx095tftR4UHU9rTX3FLLyfcNideuYWlYCGJhWp1TehI5ETxXOJD9zOb53BjbSqWxvUA5MEtFk8dYaRNjhv0R9z0fW_yNud6ayJ_p9djWNimp8aPI_Sjt_A",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Updated User Name\",\r\n  \"email\": \"updated@example.com\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/v1/users/1744570259050",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"1744570259050"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:4000/api/v1/users",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjcxMTE1MjM1YTZjNjE0NTRlZmRlZGM0NWE3N2U0MzUxMzY3ZWViZTAiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiYWRtaW4iLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYm9vay10cmFjZXIiLCJhdWQiOiJib29rLXRyYWNlciIsImF1dGhfdGltZSI6MTc0NDU3MDAzOCwidXNlcl9pZCI6ImQwN0JvWlYzd0RhZ0lrdnl4eHQyellMVEE5NjIiLCJzdWIiOiJkMDdCb1pWM3dEYWdJa3Z5eHh0MnpZTFRBOTYyIiwiaWF0IjoxNzQ0NTcwMDM4LCJleHAiOjE3NDQ1NzM2MzgsImVtYWlsIjoib21wYXRlbEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsib21wYXRlbEBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.PYAk-MCxHzY96QMqo8iZN0KkkeUysqduY_718mTeV08WmyTmvcb4RUxYV3IhGHCMIuO9DWV47O0dStk3qpcC5m88fvFWb_KdfNMe6uqHwCfoGSt9eCQABQDVyFmND3tWaFr2u6AjYze6A0f4CT9SJH6xqLEE9iWkmfo_Oj_8-Ju0sGV4n4JCOqD_wiVB3yJET26SxtgcVkaJTnPiWC-7ZoKHjBwJKnQhx095tftR4UHU9rTX3FLLyfcNideuYWlYCGJhWp1TehI5ETxXOJD9zOb53BjbSqWxvUA5MEtFk8dYaRNjhv0R9z0fW_yNud6ayJ_p9djWNimp8aPI_Sjt_A",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:4000/api/v1/users/1744570259050",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"1744570259050"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:4000/api/v1/reviews",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjcxMTE1MjM1YTZjNjE0NTRlZmRlZGM0NWE3N2U0MzUxMzY3ZWViZTAiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiYWRtaW4iLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYm9vay10cmFjZXIiLCJhdWQiOiJib29rLXRyYWNlciIsImF1dGhfdGltZSI6MTc0NDU3MDAzOCwidXNlcl9pZCI6ImQwN0JvWlYzd0RhZ0lrdnl4eHQyellMVEE5NjIiLCJzdWIiOiJkMDdCb1pWM3dEYWdJa3Z5eHh0MnpZTFRBOTYyIiwiaWF0IjoxNzQ0NTcwMDM4LCJleHAiOjE3NDQ1NzM2MzgsImVtYWlsIjoib21wYXRlbEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsib21wYXRlbEBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.PYAk-MCxHzY96QMqo8iZN0KkkeUysqduY_718mTeV08WmyTmvcb4RUxYV3IhGHCMIuO9DWV47O0dStk3qpcC5m88fvFWb_KdfNMe6uqHwCfoGSt9eCQABQDVyFmND3tWaFr2u6AjYze6A0f4CT9SJH6xqLEE9iWkmfo_Oj_8-Ju0sGV4n4JCOqD_wiVB3yJET26SxtgcVkaJTnPiWC-7ZoKHjBwJKnQhx095tftR4UHU9rTX3FLLyfcNideuYWlYCGJhWp1TehI5ETxXOJD9zOb53BjbSqWxvUA5MEtFk8dYaRNjhv0R9z0fW_yNud6ayJ_p9djWNimp8aPI_Sjt_A",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"rating\": 5,\r\n  \"comment\": \"Updated my review. Even better now!\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/v1/reviews/1744570436386",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"reviews",
+								"1744570436386"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:4000/api/v1/reviews",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjcxMTE1MjM1YTZjNjE0NTRlZmRlZGM0NWE3N2U0MzUxMzY3ZWViZTAiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiYWRtaW4iLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYm9vay10cmFjZXIiLCJhdWQiOiJib29rLXRyYWNlciIsImF1dGhfdGltZSI6MTc0NDU3MDAzOCwidXNlcl9pZCI6ImQwN0JvWlYzd0RhZ0lrdnl4eHQyellMVEE5NjIiLCJzdWIiOiJkMDdCb1pWM3dEYWdJa3Z5eHh0MnpZTFRBOTYyIiwiaWF0IjoxNzQ0NTcwMDM4LCJleHAiOjE3NDQ1NzM2MzgsImVtYWlsIjoib21wYXRlbEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsib21wYXRlbEBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.PYAk-MCxHzY96QMqo8iZN0KkkeUysqduY_718mTeV08WmyTmvcb4RUxYV3IhGHCMIuO9DWV47O0dStk3qpcC5m88fvFWb_KdfNMe6uqHwCfoGSt9eCQABQDVyFmND3tWaFr2u6AjYze6A0f4CT9SJH6xqLEE9iWkmfo_Oj_8-Ju0sGV4n4JCOqD_wiVB3yJET26SxtgcVkaJTnPiWC-7ZoKHjBwJKnQhx095tftR4UHU9rTX3FLLyfcNideuYWlYCGJhWp1TehI5ETxXOJD9zOb53BjbSqWxvUA5MEtFk8dYaRNjhv0R9z0fW_yNud6ayJ_p9djWNimp8aPI_Sjt_A",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:4000/api/v1/reviews/1744570436386",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"reviews",
+								"1744570436386"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reviews",
+			"item": [
+				{
+					"name": "Create Review",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"bookId\": \"book-id-placeholder\",\n  \"userId\": \"user-id-placeholder\",\n  \"rating\": 5,\n  \"comment\": \"Fantastic book!\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/reviews",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Reviews",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/reviews",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000"
+		},
+		{
+			"key": "token",
+			"value": "<PASTE_FIREBASE_TOKEN_HERE>"
+		}
+	]
+}
