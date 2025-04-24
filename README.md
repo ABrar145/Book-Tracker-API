@@ -141,15 +141,30 @@ npm test
 
 ## what is new
 
-##  Rate Limiting (Security Feature)
+##  New Component: express-rate-limit
 
-This project uses [express-rate-limit](https://www.npmjs.com/package/express-rate-limit) to help prevent abuse and brute-force attacks.
+We implemented `express-rate-limit` to secure the API from abuse and excessive requests.
 
-- Limits requests to **100 per 15 minutes per IP**
-- Automatically blocks further requests with a `429 Too Many Requests` response
-- Configured globally in `src/app.ts`
+-  Limits requests to 100 per 15 minutes per IP
+-  Returns `429 Too Many Requests` if exceeded
+-  Simple to install and configure
 
-This helps protect your API in production environments and improves overall stability.
+```ts
+import rateLimit from 'express-rate-limit';
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: 'Too many requests from this IP. Try again later.',
+});
+
+app.use(limiter);
+```
+
+##  Testing
+
+- Run `npm test` to execute all test suites
+- Includes test coverage for controllers and routes
 
 
 ##  Credits

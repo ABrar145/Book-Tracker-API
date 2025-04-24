@@ -1,3 +1,4 @@
+
 // server.ts (place this inside src/ if following original structure)
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
@@ -13,4 +14,3 @@ server.use(app);
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(` Server running at http://localhost:${PORT}`);
-});
