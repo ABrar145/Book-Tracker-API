@@ -4,39 +4,38 @@ import auth from '../../../config/firebase';
 interface AuthRequest extends Request {
   user?: {
     uid: string;
-    role?: string; // ✅ Add role
+    role?: string;
   };
 }
 
-const authMiddleware = async (
+const authMiddleware = (
   req: AuthRequest,
   res: Response,
   next: NextFunction
-) => {
+): void => { // ✅ Set return type to void
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(401).json({ error: 'Unauthorized: No token provided' });
+    res.status(401).json({ error: 'Unauthorized: No token provided' });
+    return;
   }
 
   const token = authHeader.split(' ')[1];
 
-  try {
-    const decodedToken = await auth.verifyIdToken(token);
-
-    // ✅ Attach uid and role (if exists) from custom claims
-    req.user = {
-      uid: decodedToken.uid,
-      role: decodedToken.role || '', // role from Firebase custom claims
-    };
-
-    next();
-  } catch (error) {
-    return res.status(401).json({
-      error: 'Invalid or expired token',
-      details: error,
+  auth.verifyIdToken(token)
+    .then((decodedToken) => {
+      req.user = {
+        uid: decodedToken.uid,
+        role: decodedToken.role || '',
+      };
+      next();
+    })
+    .catch((error) => {
+      res.status(401).json({
+        error: 'Invalid or expired token',
+        details: error,
+      });
     });
-  }
 };
 
 export default authMiddleware;

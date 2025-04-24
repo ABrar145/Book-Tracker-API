@@ -1,6 +1,6 @@
 import request from "supertest";
 import { Request, Response, NextFunction } from "express";
-import app from "../app";
+import app from "../src/app";
 
 //  Mock controller
 jest.mock("../src/api/v1/controllers/book.controller", () => ({

@@ -4,9 +4,10 @@ import authMiddleware from "../middleware/auth.middleware";
 import isAuthorized from "../middleware/authorize.middleware";
 import validateRequest from "../middleware/validate.middleware";
 import { createReviewSchema, updateReviewSchema } from "../../../validators/review.validator";
+import { limiter } from "../../../config/rateLimiter";
 
 const router = express.Router();
-
+router.use(limiter);
 /**
  * @swagger
  * tags:

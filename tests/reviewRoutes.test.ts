@@ -1,6 +1,6 @@
 import request from "supertest";
 import { Request, Response, NextFunction } from "express";
-import app from "../app";
+import app from "../src/app";
 
 //  USE `require` to align with mocked module
 const reviewController = require("../src/api/v1/controllers/review.controller");

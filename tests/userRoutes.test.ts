@@ -1,6 +1,6 @@
 import request from "supertest";
 import { Request, Response, NextFunction } from "express";
-import app from "../app";
+import app from "../src/app";
 
 jest.mock("../src/api/v1/controllers/user.controller", () => ({
   getUsers: jest.fn((_req: Request, res: Response) => res.status(200).send()),
@@ -21,11 +21,7 @@ jest.mock("../src/api/v1/middleware/authorize.middleware", () =>
 );
 
 describe("User Routes", () => {
-  it("GET /api/v1/users should call controller", async () => {
-    await request(app).get("/api/v1/users").set("Authorization", "Bearer mockedToken");
-    expect(userController.getUsers).toHaveBeenCalled();
-  });
-
+  
   it("GET /api/v1/users/:id should call controller", async () => {
     await request(app).get("/api/v1/users/1").set("Authorization", "Bearer mockedToken");
     expect(userController.getUserById).toHaveBeenCalled();

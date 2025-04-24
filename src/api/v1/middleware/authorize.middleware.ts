@@ -1,8 +1,8 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction, RequestHandler } from "express";
 
 interface AuthorizationOptions {
-  hasRole?: string[]; // Roles that are allowed
-  allowSameUser?: boolean; // Allow access if UID matches req.params.id
+  hasRole?: string[];
+  allowSameUser?: boolean;
 }
 
 interface AuthRequest extends Request {
@@ -12,25 +12,26 @@ interface AuthRequest extends Request {
   };
 }
 
-const isAuthorized = (options: AuthorizationOptions) => {
-  return (req: AuthRequest, res: Response, next: NextFunction) => {
+const isAuthorized = (options: AuthorizationOptions): RequestHandler => {
+  return (req: AuthRequest, res: Response, next: NextFunction): void => {
     const { hasRole = [], allowSameUser = false } = options;
     const user = req.user;
 
     if (!user) {
-      return res.status(401).json({ error: "Unauthorized: No user info found" });
+      res.status(401).json({ error: "Unauthorized: No user info found" });
+      return;
     }
 
     const { uid, role } = user;
-
     const hasRequiredRole = role && hasRole.includes(role);
     const isSameUser = allowSameUser && req.params.id === uid;
 
     if (hasRequiredRole || isSameUser) {
-      return next();
+      next();
+      return;
     }
 
-    return res.status(403).json({ error: "Forbidden: Insufficient permissions" });
+    res.status(403).json({ error: "Forbidden: Insufficient permissions" });
   };
 };
 

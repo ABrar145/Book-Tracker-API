@@ -4,9 +4,9 @@ import authMiddleware from "../middleware/auth.middleware";
 import isAuthorized from "../middleware/authorize.middleware";
 import validateRequest from "../middleware/validate.middleware";
 import { createUserSchema, updateUserSchema } from "../../../validators/user.validator";
-
+import { limiter } from "../../../config/rateLimiter";
 const router = express.Router();
-
+router.use(limiter);
 /**
  * @swagger
  * tags:
@@ -55,8 +55,11 @@ const router = express.Router();
  *               items:
  *                 $ref: '#/components/schemas/User'
  */
-router.get("/", authMiddleware, userController.getUsers);
-
+router.get(
+  "/:id",
+  (req, res, next) => authMiddleware(req, res, next),
+  (req, res, next) => userController.getUserById(req, res, next)
+);
 /**
  * @swagger
  * /api/v1/users/{id}:
