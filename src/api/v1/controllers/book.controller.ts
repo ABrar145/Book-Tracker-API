@@ -6,13 +6,31 @@ import { HTTP_STATUS } from "../../../constants/httpConstants";
 
 export const getAllBooks = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    console.log(" Incoming GET /books request");
-    const books: Book[] = await bookService.getAllBooks();
-    console.log("Books retrieved:", books); // <- Add this
-    res.status(200).json(successResponse(books, "Books Retrieved"));
-  } catch (err) {
-    console.error(" Error in getAllBooks:", err); // <- Already present
-    next(err);
+    const { genre, sort } = req.query;
+
+    let books = await bookService.getAllBooks(); // Get all books first
+
+    // Filtering
+      if (genre) {
+        books = books.filter(book => 
+          book.genre && book.genre.toLowerCase() === (genre as string).toLowerCase()
+        );
+      }
+
+
+    // Sorting
+    if (sort) {
+      books = books.sort((a: any, b: any) => {
+        if (sort === "publishedYear") {
+          return a.publishedYear - b.publishedYear;
+        }
+        return 0;
+      });
+    }
+
+     res.status(200).json(books);
+  } catch (error) {
+    next(error);
   }
 };
 
