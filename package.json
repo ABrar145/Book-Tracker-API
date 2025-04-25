@@ -1,0 +1,49 @@
+{
+  "name": "capstone-project-building-your-back-end-application",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "start": "ts-node src/server.ts",
+    "build": "tsc",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "swagger": "ts-node src/docs/swagger.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@firebase/auth": "^1.10.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.5.0",
+    "firebase": "^11.6.0",
+    "firebase-admin": "^13.2.0",
+    "helmet": "^8.1.0",
+    "joi": "^17.13.3",
+    "mongoose": "^8.13.2",
+    "morgan": "^1.10.0",
+    "swagger": "^0.7.5",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/jest": "^29.5.14",
+    "@types/joi": "^17.2.2",
+    "@types/supertest": "^6.0.3",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.9",
+    "supertest": "^7.1.0",
+    "swagger-autogen": "^2.23.7",
+    "ts-jest": "^29.3.1",
+    "typescript": "^5.8.2"
+  }
+}
